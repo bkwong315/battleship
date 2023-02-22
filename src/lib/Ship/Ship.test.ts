@@ -12,7 +12,7 @@ test('Ship length returns properly', () => {
   expect(submarine.getLength()).toBe(3);
 });
 
-test('Ship location returns properly', () => {
+test('Ship location setter works properly', () => {
   const location = [
     [0, 0],
     [0, 1],
@@ -20,13 +20,15 @@ test('Ship location returns properly', () => {
   ];
   const cruiser = Ship(3, location);
 
-  const expected = [
-    [0, 0],
-    [0, 1],
-    [0, 2],
+  const newLocation = [
+    [2, 0],
+    [2, 1],
+    [2, 2],
   ];
 
-  expect(cruiser.getLocation()).toStrictEqual(expected);
+  cruiser.setLocation(newLocation);
+
+  expect(cruiser.getLocation()).toStrictEqual(newLocation);
 });
 
 test('Ship is not sunk when the number of hits is less than ship length', () => {

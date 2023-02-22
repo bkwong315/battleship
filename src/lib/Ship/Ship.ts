@@ -1,14 +1,17 @@
 const Ship = (len: number, loc: number[][] = []) => {
   const length = len;
-  const location = loc;
+  let location = loc;
   let _hits = 0;
 
   const hit = () => _hits++;
   const isSunk = () => length - _hits <= 0;
   const getLength = () => length;
-  const getLocation = () => location;
+  const setLocation = (loc: number[][]) => {
+    location = loc;
+  };
+  const getLocation = () => [...location];
 
-  return { hit, isSunk, getLength, getLocation };
+  return { hit, isSunk, getLength, setLocation, getLocation };
 };
 
 export default Ship;
