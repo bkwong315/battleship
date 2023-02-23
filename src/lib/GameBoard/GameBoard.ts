@@ -4,6 +4,7 @@ interface boardData {
   ships: {
     [key: string]: ReturnType<typeof Ship>;
   };
+  allShots: number[][];
   missedShots: number[][];
 }
 
@@ -16,6 +17,7 @@ const GameBoard = () => {
       submarine: Ship(3),
       destroyer: Ship(2),
     },
+    allShots: [],
     missedShots: [],
   };
 
@@ -26,7 +28,13 @@ const GameBoard = () => {
     dir: string,
     shipType: string
   ) => {
+    if (coords[0] < 0 || coords[0] > 6 || coords[1] < 0 || coords[1] > 6) {
+      throw new Error(
+        'Invalid coords. Coords must be of the following format [0-6,0-6].'
+      );
+    }
     const [startRow, startCol] = coords;
+
     const ship = _data.ships[shipType];
 
     const offSet = { row: 0, col: 0 };
@@ -47,6 +55,16 @@ const GameBoard = () => {
 
     const newLocation = [];
     for (let i = 0; i < ship.getLength(); i++) {
+      if (
+        startRow + offSet.row * i < 0 ||
+        startRow + offSet.row * i > 6 ||
+        startCol + offSet.col * i < 0 ||
+        startCol + offSet.col * i > 6
+      ) {
+        throw new Error(
+          'Invalid coords. Coords must be between 0-6 for both axes.'
+        );
+      }
       newLocation.push([startRow + offSet.row * i, startCol + offSet.col * i]);
     }
 
@@ -54,6 +72,17 @@ const GameBoard = () => {
   };
 
   const receiveAttack = (coords: number[]) => {
+    if (coords[0] < 0 || coords[0] > 6 || coords[1] < 0 || coords[1] > 6) {
+      throw new Error(
+        'Invalid coords. Coords must be of the following format [0-6,0-6].'
+      );
+    }
+
+    for (const prevShot of _data.allShots) {
+      if (prevShot[0] === coords[0] && prevShot[1] === coords[1])
+        throw new Error('Invalid coords. Cannot attack the same coords twice.');
+    }
+
     let hitShip = false;
 
     for (const shipType in _data.ships) {
@@ -69,6 +98,8 @@ const GameBoard = () => {
 
       if (hitShip) break;
     }
+
+    _data.allShots.push(coords);
 
     if (!hitShip) {
       _data.missedShots.push(coords);
