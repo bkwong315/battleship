@@ -10,7 +10,8 @@
     "target": "es5",
     "types": ["jest"],
     "allowJs": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "lib": ["es2016", "dom"]
   },
   "include": ["./src/**/*"]
 }
