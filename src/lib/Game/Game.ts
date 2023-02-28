@@ -11,8 +11,8 @@ const Game = () => {
   const getComputerBoard = () => computer.getBoard();
 
   const playTurn = (coords: number[]) => {
-    computer.receiveAttack(coords);
-    player.receiveAttack(getComputerAttack());
+    if (!isGameOver()) computer.receiveAttack(coords);
+    if (!isGameOver()) player.receiveAttack(getComputerAttack());
   };
 
   const getComputerAttack = () => {
@@ -34,6 +34,10 @@ const Game = () => {
 
     return targetCoords;
   };
+
+  const isGameOver = () =>
+    getPlayerBoard().isFleetDestroyed() ||
+    getComputerBoard().isFleetDestroyed();
 
   return {
     getPlayerName,
