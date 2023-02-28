@@ -99,10 +99,10 @@ const GameBoard = () => {
       if (hitShip) break;
     }
 
-    _data.allShots.push(coords);
+    _data.allShots = [..._data.allShots, coords];
 
     if (!hitShip) {
-      _data.missedShots.push(coords);
+      _data.missedShots = [..._data.missedShots, coords];
       return 'miss';
     }
 
