@@ -1,0 +1,15 @@
+.board-cell {
+  background: rgb(55, 197, 183);
+
+  &[dataset-state='hit'] {
+    background: #f00;
+  }
+
+  &[dataset-state='miss'] {
+    background: #00f;
+  }
+
+  &[dataset-state='unknown']:hover {
+    background: rgb(77, 255, 237);
+  }
+}
