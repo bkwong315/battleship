@@ -1,0 +1,13 @@
+.layout {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  min-height: 100lvh;
+  background: rgb(61, 61, 61);
+}
+
+.boards-container {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+}
