@@ -6,6 +6,7 @@ const Player = (initialName: string) => {
 
   const getName = () => name;
   const setName = (newName: string) => (name = newName);
+  const getBoard = () => gameBoard;
 
   const placeShip = (coords: [number, number], dir: string, shipType: string) =>
     gameBoard.placeShip(coords, dir, shipType);
@@ -21,7 +22,15 @@ const Player = (initialName: string) => {
 
   const hasLost = () => gameBoard.isFleetDestroyed();
 
-  return { getName, setName, placeShip, sendAttack, receiveAttack, hasLost };
+  return {
+    getName,
+    setName,
+    getBoard,
+    placeShip,
+    sendAttack,
+    receiveAttack,
+    hasLost,
+  };
 };
 
 export default Player;
