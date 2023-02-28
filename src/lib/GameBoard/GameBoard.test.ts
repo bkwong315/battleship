@@ -19,9 +19,9 @@ describe('Testing placeShip method', () => {
     const gameBoard = GameBoard();
 
     expect(() => {
-      gameBoard.placeShip([-1, 7], 'down', 'submarine');
+      gameBoard.placeShip([-1, 9], 'down', 'submarine');
     }).toThrow(
-      'Invalid coords. Coords must be of the following format [0-6,0-6].'
+      'Invalid coords. Coords must be of the following format [0-9,0-9].'
     );
   });
 
@@ -29,8 +29,8 @@ describe('Testing placeShip method', () => {
     const gameBoard = GameBoard();
 
     expect(() => {
-      gameBoard.placeShip([5, 6], 'right', 'submarine');
-    }).toThrow('Invalid coords. Coords must be between 0-6 for both axes.');
+      gameBoard.placeShip([5, 9], 'right', 'submarine');
+    }).toThrow('Invalid coords. Coords must be between 0-9 for both axes.');
   });
 });
 
@@ -41,9 +41,9 @@ describe('Testing receiveAttack method', () => {
     gameBoard.placeShip([2, 2], 'right', 'cruiser');
 
     expect(() => {
-      gameBoard.receiveAttack([7, 1]);
+      gameBoard.receiveAttack([10, 1]);
     }).toThrow(
-      'Invalid coords. Coords must be of the following format [0-6,0-6].'
+      'Invalid coords. Coords must be of the following format [0-9,0-9].'
     );
   });
 

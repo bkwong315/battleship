@@ -28,9 +28,9 @@ const GameBoard = () => {
     dir: string,
     shipType: string
   ) => {
-    if (coords[0] < 0 || coords[0] > 6 || coords[1] < 0 || coords[1] > 6) {
+    if (coords[0] < 0 || coords[0] > 9 || coords[1] < 0 || coords[1] > 9) {
       throw new Error(
-        'Invalid coords. Coords must be of the following format [0-6,0-6].'
+        'Invalid coords. Coords must be of the following format [0-9,0-9].'
       );
     }
     const [startRow, startCol] = coords;
@@ -57,12 +57,12 @@ const GameBoard = () => {
     for (let i = 0; i < ship.getLength(); i++) {
       if (
         startRow + offSet.row * i < 0 ||
-        startRow + offSet.row * i > 6 ||
+        startRow + offSet.row * i > 9 ||
         startCol + offSet.col * i < 0 ||
-        startCol + offSet.col * i > 6
+        startCol + offSet.col * i > 9
       ) {
         throw new Error(
-          'Invalid coords. Coords must be between 0-6 for both axes.'
+          'Invalid coords. Coords must be between 0-9 for both axes.'
         );
       }
       newLocation.push([startRow + offSet.row * i, startCol + offSet.col * i]);
@@ -72,9 +72,9 @@ const GameBoard = () => {
   };
 
   const receiveAttack = (coords: number[]) => {
-    if (coords[0] < 0 || coords[0] > 6 || coords[1] < 0 || coords[1] > 6) {
+    if (coords[0] < 0 || coords[0] > 9 || coords[1] < 0 || coords[1] > 9) {
       throw new Error(
-        'Invalid coords. Coords must be of the following format [0-6,0-6].'
+        'Invalid coords. Coords must be of the following format [0-9,0-9].'
       );
     }
 
