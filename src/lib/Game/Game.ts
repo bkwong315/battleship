@@ -3,6 +3,7 @@ import Player from '../Player/Player';
 const Game = () => {
   const player = Player('Name');
   const computer = Player('Comp');
+  const gameStarted = false;
 
   const getPlayerName = () => player.getName();
   const setPlayerName = (name: string) => player.setName(name);
@@ -10,8 +11,21 @@ const Game = () => {
   const getPlayerBoard = () => player.getBoard();
   const getComputerBoard = () => computer.getBoard();
 
+  const placePlayerShip = (
+    coords: [number, number],
+    dir: string,
+    shipType: string
+  ) => player.placeShip(coords, dir, shipType);
+
   const playTurn = (coords: number[]) => {
-    if (!isGameOver()) console.log('Game over! No moves can be made.');
+    if (!gameStarted) {
+      console.log('Game has not started yet.');
+      return;
+    }
+    if (!isGameOver()) {
+      console.log('Game over! No moves can be made.');
+      return;
+    }
 
     if (!isGameOver()) {
       computer.receiveAttack(coords);
@@ -58,6 +72,7 @@ const Game = () => {
     getPlayerBoard,
     getComputerBoard,
     playTurn,
+    placePlayerShip,
   };
 };
 
