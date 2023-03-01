@@ -11,8 +11,21 @@ const Game = () => {
   const getComputerBoard = () => computer.getBoard();
 
   const playTurn = (coords: number[]) => {
-    if (!isGameOver()) computer.receiveAttack(coords);
-    if (!isGameOver()) player.receiveAttack(getComputerAttack());
+    if (!isGameOver()) console.log('Game over! No moves can be made.');
+
+    if (!isGameOver()) {
+      computer.receiveAttack(coords);
+      if (isGameOver()) {
+        console.log('Game over, you win!');
+      }
+    }
+
+    if (!isGameOver()) {
+      player.receiveAttack(getComputerAttack());
+      if (isGameOver()) {
+        console.log('Game over, you lose!');
+      }
+    }
   };
 
   const getComputerAttack = () => {
