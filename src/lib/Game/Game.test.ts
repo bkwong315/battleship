@@ -30,15 +30,35 @@ describe('Get boards', () => {
 test('Send attack', () => {
   const game = Game();
 
-  const compBoard = game.getComputerBoard();
-  compBoard.placeShip([0, 0], 'right', 'carrier');
-  game.playTurn([0, 0]);
+  game.placePlayerShip([0, 0], 'right', 'carrier');
+  game.placePlayerShip([1, 0], 'right', 'battleship');
+  game.placePlayerShip([2, 0], 'right', 'cruiser');
+  game.placePlayerShip([3, 0], 'right', 'submarine');
+  game.placePlayerShip([4, 0], 'right', 'destroyer');
 
-  for (let i = 1; i < 5; i++) {
-    compBoard.receiveAttack([0, i]);
-  }
+  game.getComputerBoard().placeShip([0, 0], 'right', 'carrier');
+
+  game.startGame();
+  game.playTurn([0, 0]);
+  game.playTurn([0, 1]);
+  game.playTurn([0, 2]);
+  game.playTurn([0, 3]);
+  game.playTurn([0, 4]);
 
   expect(game.getComputerBoard().getData().ships['carrier'].isSunk()).toBe(
     true
   );
+});
+
+test('Start game (fail)', () => {
+  const game = Game();
+
+  game.placePlayerShip([0, 0], 'right', 'carrier');
+  game.placePlayerShip([1, 0], 'right', 'battleship');
+  game.placePlayerShip([2, 0], 'right', 'cruiser');
+  game.placePlayerShip([3, 0], 'right', 'submarine');
+
+  expect(() => {
+    game.startGame();
+  }).toThrow('Not all ships are deployed.');
 });

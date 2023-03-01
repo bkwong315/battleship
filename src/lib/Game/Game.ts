@@ -3,7 +3,7 @@ import Player from '../Player/Player';
 const Game = () => {
   const player = Player('Name');
   const computer = Player('Comp');
-  const gameStarted = false;
+  let gameStarted = false;
 
   const getPlayerName = () => player.getName();
   const setPlayerName = (name: string) => player.setName(name);
@@ -17,28 +17,37 @@ const Game = () => {
     shipType: string
   ) => player.placeShip(coords, dir, shipType);
 
+  const startGame = () => {
+    for (const shipType in player.getBoard().getData().ships) {
+      if (
+        player.getBoard().getData().ships[shipType].getLocation().length === 0
+      ) {
+        throw new Error('Not all ships are deployed.');
+      }
+    }
+
+    gameStarted = true;
+  };
+
   const playTurn = (coords: number[]) => {
     if (!gameStarted) {
       console.log('Game has not started yet.');
       return;
     }
-    if (!isGameOver()) {
+    if (isGameOver()) {
       console.log('Game over! No moves can be made.');
       return;
     }
 
-    if (!isGameOver()) {
-      computer.receiveAttack(coords);
-      if (isGameOver()) {
-        console.log('Game over, you win!');
-      }
+    computer.receiveAttack(coords);
+    if (isGameOver()) {
+      console.log('Game over, you win!');
+      return;
     }
 
-    if (!isGameOver()) {
-      player.receiveAttack(getComputerAttack());
-      if (isGameOver()) {
-        console.log('Game over, you lose!');
-      }
+    player.receiveAttack(getComputerAttack());
+    if (isGameOver()) {
+      console.log('Game over, you lose!');
     }
   };
 
@@ -73,6 +82,7 @@ const Game = () => {
     getComputerBoard,
     playTurn,
     placePlayerShip,
+    startGame,
   };
 };
 
