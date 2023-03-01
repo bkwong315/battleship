@@ -7,6 +7,9 @@ const BoardCell = (props: {
   callback?: (coords: number[]) => void;
 }) => {
   const { row, col, state, callback } = props;
+  let interactable = 'true';
+
+  if (callback === undefined) interactable = 'false';
 
   return (
     <div
@@ -18,7 +21,8 @@ const BoardCell = (props: {
             }
           : undefined
       }
-      dataset-state={state}></div>
+      dataset-state={state}
+      dataset-interactable={interactable}></div>
   );
 };
 

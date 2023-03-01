@@ -9,7 +9,7 @@
     background: #00f;
   }
 
-  &[dataset-state='unknown']:hover {
+  &[dataset-state='unknown'][dataset-interactable='true']:hover {
     background: rgb(77, 255, 237);
   }
 }
