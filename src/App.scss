@@ -1,4 +1,79 @@
-.layout {
+@import 'globals';
+
+.main-layout {
+  min-width: 100vw;
+  min-height: 100vh;
+  min-width: 100dvw;
+  min-height: 100dvh;
+
+  background: radial-gradient($bg-radial-light, $bg-radial-dark 80%);
+  border: solid calc(1vmin + 0.5rem) #9b8d4e;
+
+  display: grid;
+  grid-auto-rows: max-content;
+  justify-content: center;
+  justify-items: center;
+  gap: 5rem;
+
+  h1 {
+    font-size: calc(10vmin + 1rem);
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+    margin-top: 5vh;
+  }
+
+  form {
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 1rem;
+    font-weight: 700;
+
+    .input-wrapper {
+      display: grid;
+      gap: 1rem;
+
+      label {
+        font-size: 2rem;
+        text-align: center;
+      }
+
+      input {
+        background: $green;
+        border: none;
+        height: 2rem;
+        padding: 0.25rem;
+        font-weight: 700;
+        font-size: 1rem;
+
+        &:hover,
+        &:focus-visible {
+          background: $light-green;
+          outline: transparent;
+        }
+      }
+    }
+
+    span {
+      text-align: center;
+      display: none;
+    }
+
+    button {
+      border: none;
+      background: $green;
+      padding: 0.5rem;
+      font-weight: 700;
+      font-size: 1.5rem;
+      cursor: pointer;
+
+      &:hover {
+        background: $light-green;
+      }
+    }
+  }
+}
+
+.game-layout {
   display: grid;
   justify-content: center;
   align-items: center;

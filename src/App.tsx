@@ -14,8 +14,6 @@ const App = () => {
   const [computerMissedShots, setComputerMissedShots] = useState<number[][]>();
 
   useEffect(() => {
-    game.setPlayerName('John');
-
     setComputerAllShots([]);
     setComputerMissedShots([]);
 
@@ -49,34 +47,72 @@ const App = () => {
     }
   }
 
+  function submitName(event: React.MouseEvent) {
+    event.preventDefault();
+    const input = document.querySelector('#name-input') as HTMLInputElement;
+    const errorDisplay = document.querySelector('.error') as HTMLElement;
+
+    if (input && input.value !== '') {
+      game.setPlayerName(input.value);
+    } else {
+      if (errorDisplay) errorDisplay.style.display = 'inline-block';
+    }
+
+    console.log(game.getPlayerName());
+  }
+
   useEffect(() => {
     return;
   }, [computerAllShots]);
 
+  console.log(game.getPlayerName() === '');
+
   return (
     <>
-      <div className='layout'>
-        <div className='boards-container'>
-          {playerBoardData.current !== undefined && (
-            <BoardDisplay
-              boardData={{
-                allShots: playerBoardData.current.allShots,
-                missedShots: playerBoardData.current.missedShots,
-                ships: playerBoardData.current.ships,
-              }}
-            />
-          )}
-          {computerAllShots !== undefined &&
-            computerMissedShots !== undefined && (
-              <BoardDisplay
-                boardData={{
-                  allShots: computerAllShots,
-                  missedShots: computerMissedShots,
-                }}
-                cellCallback={updateBoard}
+      <div className='main-layout'>
+        <h1>Battleship</h1>
+        {game.getPlayerName() === '' && (
+          <form className='name-form'>
+            <div className='input-wrapper'>
+              <label htmlFor='name-input'>Enter Name:</label>
+              <input
+                type='text'
+                name='name-input'
+                id='name-input'
+                autoComplete='off'
               />
-            )}
-        </div>
+            </div>
+            <span className='error'>* Name cannot be blank</span>
+            <button type='submit' onClick={submitName}>
+              Submit
+            </button>
+          </form>
+        )}
+        {game.getPlayerName() !== '' && (
+          <div className='game-layout'>
+            <div className='boards-container'>
+              {playerBoardData.current !== undefined && (
+                <BoardDisplay
+                  boardData={{
+                    allShots: playerBoardData.current.allShots,
+                    missedShots: playerBoardData.current.missedShots,
+                    ships: playerBoardData.current.ships,
+                  }}
+                />
+              )}
+              {computerAllShots !== undefined &&
+                computerMissedShots !== undefined && (
+                  <BoardDisplay
+                    boardData={{
+                      allShots: computerAllShots,
+                      missedShots: computerMissedShots,
+                    }}
+                    cellCallback={updateBoard}
+                  />
+                )}
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
