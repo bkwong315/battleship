@@ -1,7 +1,7 @@
 import Player from '../Player/Player';
 
 const Game = () => {
-  const player = Player('Name');
+  const player = Player('');
   const computer = Player('Comp');
   let gameStarted = false;
 
