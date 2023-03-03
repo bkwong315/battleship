@@ -9,6 +9,7 @@ const App = () => {
   const game: ReturnType<typeof Game> = useMemo(() => Game(), []);
   const playerBoardData = useRef<BoardData>();
   const computerBoardData = useRef<BoardData>();
+  const [playerName, setPlayerName] = useState<string>(game.getPlayerName());
 
   const [computerAllShots, setComputerAllShots] = useState<number[][]>();
   const [computerMissedShots, setComputerMissedShots] = useState<number[][]>();
@@ -54,6 +55,7 @@ const App = () => {
 
     if (input && input.value !== '') {
       game.setPlayerName(input.value);
+      setPlayerName(game.getPlayerName());
     } else {
       if (errorDisplay) errorDisplay.style.display = 'inline-block';
     }
@@ -63,9 +65,7 @@ const App = () => {
 
   useEffect(() => {
     return;
-  }, [computerAllShots]);
-
-  console.log(game.getPlayerName() === '');
+  }, [computerAllShots, playerName]);
 
   return (
     <>
@@ -87,6 +87,9 @@ const App = () => {
               Submit
             </button>
           </form>
+        )}
+        {game.getPlayerName() !== '' && (
+          <div className='deployment-layout'>Deploy</div>
         )}
         {game.getPlayerName() !== '' && (
           <div className='game-layout'>
