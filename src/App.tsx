@@ -93,6 +93,21 @@ const App = () => {
         {game.getPlayerName() !== '' && (
           <div className='deployment-layout'>
             <h1 className='layout-header'>Deployment</h1>
+            <div className='directions-container'>
+              <p className='instructions'>
+                Deploying {`carrier ( length 5 cells )`}
+              </p>
+              <div className='rotation-icons-container'>
+                <img
+                  src='../imgs/rotate-left-solid.svg'
+                  alt='rotate-left-icon'
+                />
+                <img
+                  src='../imgs/rotate-right-solid.svg'
+                  alt='rotate-right-icon'
+                />
+              </div>
+            </div>
             {playerBoardData.current !== undefined && (
               <BoardDisplay
                 boardData={{
@@ -102,7 +117,7 @@ const App = () => {
                 }}
               />
             )}
-            <div className='deployment-btn-container'>
+            <div className='deployment-btns-container'>
               <button className='btn confirm-deployment-btn'>Confirm</button>
               <button className='btn cancel-deployment-btn'>Cancel</button>
             </div>
