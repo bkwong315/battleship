@@ -1,5 +1,13 @@
 @import 'globals';
 
+@mixin grid-layout() {
+  display: grid;
+  grid-auto-rows: max-content;
+  justify-content: center;
+  justify-items: center;
+  gap: 5rem;
+}
+
 .background {
   min-width: 100vw;
   min-height: 100vh;
@@ -11,11 +19,7 @@
 }
 
 .main-layout {
-  display: grid;
-  grid-auto-rows: max-content;
-  justify-content: center;
-  justify-items: center;
-  gap: 5rem;
+  @include grid-layout;
 
   h1 {
     font-size: calc(10vmin + 1rem);
@@ -73,10 +77,7 @@
 }
 
 .game-layout {
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  min-height: 100lvh;
+  @include grid-layout();
   background: rgb(61, 61, 61);
 }
 
