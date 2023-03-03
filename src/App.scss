@@ -5,7 +5,21 @@
   grid-auto-rows: max-content;
   justify-content: center;
   justify-items: center;
-  gap: 5rem;
+  gap: 4rem;
+
+  min-height: 100%;
+}
+
+@mixin btn() {
+  border: none;
+  background: $green;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background: $light-green;
+  }
 }
 
 .background {
@@ -18,15 +32,15 @@
   border: solid calc(1vmin + 0.5rem) #9b8d4e;
 }
 
+.layout-header {
+  font-size: calc(10vmin + 1rem);
+  letter-spacing: 0.5rem;
+  text-transform: uppercase;
+  margin-top: 5vh;
+}
+
 .main-layout {
   @include grid-layout;
-
-  h1 {
-    font-size: calc(10vmin + 1rem);
-    letter-spacing: 0.5rem;
-    text-transform: uppercase;
-    margin-top: 5vh;
-  }
 
   form {
     display: grid;
@@ -63,16 +77,26 @@
     }
 
     button {
-      border: none;
-      background: $green;
-      padding: 0.5rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-
-      &:hover {
-        background: $light-green;
-      }
+      @include btn();
     }
+  }
+}
+
+.deployment-layout {
+  @include grid-layout;
+
+  align-items: center;
+  gap: 1rem;
+
+  .deployment-btn-container {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 2rem;
+    grid-auto-columns: 1fr;
+  }
+
+  button {
+    @include btn;
   }
 }
 

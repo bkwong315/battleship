@@ -72,7 +72,7 @@ const App = () => {
       <div className='background'>
         {game.getPlayerName() === '' && (
           <div className='main-layout'>
-            <h1>Battleship</h1>
+            <h1 className='layout-header'>Battleship</h1>
             <form className='name-form'>
               <div className='input-wrapper'>
                 <label htmlFor='name-input'>Enter Name:</label>
@@ -92,10 +92,23 @@ const App = () => {
         )}
         {game.getPlayerName() !== '' && (
           <div className='deployment-layout'>
-            <h1>Deploy</h1>
+            <h1 className='layout-header'>Deployment</h1>
+            {playerBoardData.current !== undefined && (
+              <BoardDisplay
+                boardData={{
+                  allShots: playerBoardData.current.allShots,
+                  missedShots: playerBoardData.current.missedShots,
+                  ships: playerBoardData.current.ships,
+                }}
+              />
+            )}
+            <div className='deployment-btn-container'>
+              <button className='btn confirm-deployment-btn'>Confirm</button>
+              <button className='btn cancel-deployment-btn'>Cancel</button>
+            </div>
           </div>
         )}
-        {game.getPlayerName() !== '' && (
+        {game.isGameStarted() && (
           <div className='game-layout'>
             <div className='boards-container'>
               {playerBoardData.current !== undefined && (
