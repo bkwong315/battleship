@@ -1,6 +1,6 @@
 @import 'globals';
 
-.main-layout {
+.background {
   min-width: 100vw;
   min-height: 100vh;
   min-width: 100dvw;
@@ -8,7 +8,9 @@
 
   background: radial-gradient($bg-radial-light, $bg-radial-dark 80%);
   border: solid calc(1vmin + 0.5rem) #9b8d4e;
+}
 
+.main-layout {
   display: grid;
   grid-auto-rows: max-content;
   justify-content: center;

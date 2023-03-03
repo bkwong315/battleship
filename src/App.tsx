@@ -69,27 +69,31 @@ const App = () => {
 
   return (
     <>
-      <div className='main-layout'>
-        <h1>Battleship</h1>
+      <div className='background'>
         {game.getPlayerName() === '' && (
-          <form className='name-form'>
-            <div className='input-wrapper'>
-              <label htmlFor='name-input'>Enter Name:</label>
-              <input
-                type='text'
-                name='name-input'
-                id='name-input'
-                autoComplete='off'
-              />
-            </div>
-            <span className='error'>* Name cannot be blank</span>
-            <button type='submit' onClick={submitName}>
-              Submit
-            </button>
-          </form>
+          <div className='main-layout'>
+            <h1>Battleship</h1>
+            <form className='name-form'>
+              <div className='input-wrapper'>
+                <label htmlFor='name-input'>Enter Name:</label>
+                <input
+                  type='text'
+                  name='name-input'
+                  id='name-input'
+                  autoComplete='off'
+                />
+              </div>
+              <span className='error'>* Name cannot be blank</span>
+              <button type='submit' onClick={submitName}>
+                Submit
+              </button>
+            </form>
+          </div>
         )}
         {game.getPlayerName() !== '' && (
-          <div className='deployment-layout'>Deploy</div>
+          <div className='deployment-layout'>
+            <h1>Deploy</h1>
+          </div>
         )}
         {game.getPlayerName() !== '' && (
           <div className='game-layout'>
