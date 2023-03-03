@@ -11,6 +11,8 @@ const Game = () => {
   const getPlayerBoard = () => player.getBoard();
   const getComputerBoard = () => computer.getBoard();
 
+  const isGameStarted = () => gameStarted;
+
   const placePlayerShip = (
     coords: [number, number],
     dir: string,
@@ -82,6 +84,7 @@ const Game = () => {
     getComputerBoard,
     playTurn,
     placePlayerShip,
+    isGameStarted,
     startGame,
   };
 };

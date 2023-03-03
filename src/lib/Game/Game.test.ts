@@ -62,3 +62,17 @@ test('Start game (fail)', () => {
     game.startGame();
   }).toThrow('Not all ships are deployed.');
 });
+
+test('Start game (success)', () => {
+  const game = Game();
+
+  game.placePlayerShip([0, 0], 'right', 'carrier');
+  game.placePlayerShip([1, 0], 'right', 'battleship');
+  game.placePlayerShip([2, 0], 'right', 'cruiser');
+  game.placePlayerShip([3, 0], 'right', 'submarine');
+  game.placePlayerShip([4, 0], 'right', 'destroyer');
+
+  game.startGame();
+
+  expect(game.isGameStarted()).toBe(true);
+});
