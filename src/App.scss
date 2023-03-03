@@ -26,7 +26,6 @@
     display: grid;
     grid-auto-rows: max-content;
     gap: 1rem;
-    font-weight: 700;
 
     .input-wrapper {
       display: grid;
@@ -42,7 +41,6 @@
         border: none;
         height: 2rem;
         padding: 0.25rem;
-        font-weight: 700;
         font-size: 1rem;
 
         &:hover,
@@ -62,7 +60,6 @@
       border: none;
       background: $green;
       padding: 0.5rem;
-      font-weight: 700;
       font-size: 1.5rem;
       cursor: pointer;
 
