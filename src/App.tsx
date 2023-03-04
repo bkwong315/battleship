@@ -9,10 +9,12 @@ const App = () => {
   const game: ReturnType<typeof Game> = useMemo(() => Game(), []);
   const playerBoardData = useRef<BoardData>();
   const computerBoardData = useRef<BoardData>();
-  const [playerName, setPlayerName] = useState<string>(game.getPlayerName());
 
+  const [playerName, setPlayerName] = useState<string>(game.getPlayerName());
   const [computerAllShots, setComputerAllShots] = useState<number[][]>();
   const [computerMissedShots, setComputerMissedShots] = useState<number[][]>();
+  const [placementDir, setPlacementDir] = useState<string>('right');
+  const [currShip, setCurrShip] = useState<string>('carrier');
 
   useEffect(() => {
     setComputerAllShots([]);
@@ -63,9 +65,28 @@ const App = () => {
     console.log(game.getPlayerName());
   }
 
+  function placeShip(coords: [number, number]) {
+    game.placePlayerShip(coords, placementDir, currShip);
+  }
+
+  function rotateShip(rotateDir: string) {
+    const directions = ['up', 'right', 'down', 'left'];
+    let currIdx = directions.findIndex(
+      (direction) => direction === placementDir
+    );
+
+    if (rotateDir === 'clockwise') {
+      currIdx = currIdx + 1 >= directions.length ? 0 : currIdx + 1;
+    } else if (rotateDir === 'counter-clockwise') {
+      currIdx = currIdx - 1 < 0 ? directions.length - 1 : currIdx - 1;
+    }
+
+    setPlacementDir(directions[currIdx]);
+  }
+
   useEffect(() => {
     return;
-  }, [computerAllShots, playerName]);
+  }, [computerAllShots, playerName, placementDir]);
 
   return (
     <>
@@ -101,10 +122,12 @@ const App = () => {
                 <img
                   src='../imgs/rotate-left-solid.svg'
                   alt='rotate-left-icon'
+                  onClick={rotateShip.bind(null, 'counter-clockwise')}
                 />
                 <img
                   src='../imgs/rotate-right-solid.svg'
                   alt='rotate-right-icon'
+                  onClick={rotateShip.bind(null, 'clockwise')}
                 />
               </div>
             </div>
@@ -115,6 +138,7 @@ const App = () => {
                   missedShots: playerBoardData.current.missedShots,
                   ships: playerBoardData.current.ships,
                 }}
+                cellCallback={placeShip}
               />
             )}
             <div className='deployment-btns-container'>
