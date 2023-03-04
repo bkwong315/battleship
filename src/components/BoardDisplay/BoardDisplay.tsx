@@ -6,7 +6,7 @@ import './BoardDisplay.scss';
 
 const BoardDisplay = (props: {
   boardData: BoardData;
-  cellCallback?: (coords: number[]) => void;
+  cellCallback?: (coords: [number, number]) => void;
 }) => {
   const { boardData, cellCallback } = props;
   const { missedShots, allShots } = boardData;

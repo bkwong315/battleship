@@ -4,7 +4,7 @@ const BoardCell = (props: {
   row: number;
   col: number;
   state: string;
-  callback?: (coords: number[]) => void;
+  callback?: (coords: [number, number]) => void;
 }) => {
   const { row, col, state, callback } = props;
   let interactable = 'true';
