@@ -14,6 +14,8 @@ const App = () => {
   const [computerAllShots, setComputerAllShots] = useState<number[][]>();
   const [computerMissedShots, setComputerMissedShots] = useState<number[][]>();
   const [placementDir, setPlacementDir] = useState<string>('right');
+  const placementDirRef = useRef<string>('');
+  placementDirRef.current = placementDir;
   const [currShip, setCurrShip] = useState<string>('carrier');
 
   useEffect(() => {
@@ -66,7 +68,7 @@ const App = () => {
   }
 
   function placeShip(coords: [number, number]) {
-    game.placePlayerShip(coords, placementDir, currShip);
+    game.placePlayerShip(coords, placementDirRef.current, currShip);
   }
 
   function rotateShip(rotateDir: string) {
@@ -82,6 +84,7 @@ const App = () => {
     }
 
     setPlacementDir(directions[currIdx]);
+    placementDirRef.current = placementDir;
   }
 
   useEffect(() => {
