@@ -16,7 +16,14 @@ const App = () => {
   const [placementDir, setPlacementDir] = useState<string>('right');
   const placementDirRef = useRef<string>('');
   placementDirRef.current = placementDir;
-  const [currShip, setCurrShip] = useState<string>('carrier');
+  const [currShipType, setCurrShipType] = useState<string>('carrier');
+  const currShipTypeRef = useRef<string>();
+  currShipTypeRef.current = currShipType;
+  const [deploymentCoords, setDeploymentCoords] = useState<[number, number]>([
+    0, 0,
+  ]);
+  const deploymentCoordsRef = useRef<[number, number]>();
+  deploymentCoordsRef.current = deploymentCoords;
 
   useEffect(() => {
     setComputerAllShots([]);
@@ -30,12 +37,6 @@ const App = () => {
     game.getComputerBoard().placeShip([0, 2], 'down', 'cruiser');
     game.getComputerBoard().placeShip([0, 3], 'down', 'submarine');
     game.getComputerBoard().placeShip([0, 4], 'down', 'destroyer');
-
-    game.getPlayerBoard().placeShip([0, 0], 'down', 'carrier');
-    game.getPlayerBoard().placeShip([0, 1], 'down', 'battleship');
-    game.getPlayerBoard().placeShip([0, 2], 'down', 'cruiser');
-    game.getPlayerBoard().placeShip([0, 3], 'down', 'submarine');
-    game.getPlayerBoard().placeShip([0, 4], 'down', 'destroyer');
   }, []);
 
   function updateBoard(coords: number[]) {
@@ -67,8 +68,33 @@ const App = () => {
     console.log(game.getPlayerName());
   }
 
-  function placeShip(coords: [number, number]) {
-    game.placePlayerShip(coords, placementDirRef.current, currShip);
+  function cycleShip() {
+    const shipTypes = [
+      'carrier',
+      'battleship',
+      'cruiser',
+      'submarine',
+      'destroyer',
+    ];
+
+    game.placePlayerShip(
+      deploymentCoords,
+      placementDirRef.current,
+      currShipType
+    );
+
+    const shipIdx = shipTypes.findIndex(
+      (shipType) => shipType === currShipType
+    );
+
+    if (shipIdx === shipTypes.length - 1) {
+      // Updating currShipType to cause rerender
+      setCurrShipType(shipTypes[shipIdx - 1]);
+      game.startGame();
+    } else {
+      setCurrShipType(shipTypes[shipIdx + 1]);
+      currShipTypeRef.current = currShipType;
+    }
   }
 
   function rotateShip(rotateDir: string) {
@@ -89,7 +115,7 @@ const App = () => {
 
   useEffect(() => {
     return;
-  }, [computerAllShots, playerName, placementDir]);
+  }, [computerAllShots, playerName, placementDir, currShipType]);
 
   return (
     <>
@@ -114,12 +140,16 @@ const App = () => {
             </form>
           </div>
         )}
-        {game.getPlayerName() !== '' && (
+        {!game.isGameStarted() && game.getPlayerName() !== '' && (
           <div className='deployment-layout'>
             <h1 className='layout-header'>Deployment</h1>
             <div className='directions-container'>
               <p className='instructions'>
-                Deploying {`carrier ( length 5 cells )`}
+                Deploying{' '}
+                {`${currShipType} ( length ${game
+                  .getPlayerBoard()
+                  .getData()
+                  .ships[`${currShipType}`].getLength()} cells )`}
               </p>
               <div className='rotation-icons-container'>
                 <img
@@ -141,11 +171,15 @@ const App = () => {
                   missedShots: playerBoardData.current.missedShots,
                   ships: playerBoardData.current.ships,
                 }}
-                cellCallback={placeShip}
+                cellCallback={setDeploymentCoords}
               />
             )}
             <div className='deployment-btns-container'>
-              <button className='btn confirm-deployment-btn'>Confirm</button>
+              <button
+                onClick={cycleShip}
+                className='btn confirm-deployment-btn'>
+                Confirm
+              </button>
               <button className='btn cancel-deployment-btn'>Cancel</button>
             </div>
           </div>
