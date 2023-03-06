@@ -1,6 +1,10 @@
 .board-cell {
   background: rgb(55, 197, 183);
 
+  &[dataset-state='ship'] {
+    background: rgb(100, 255, 113);
+  }
+
   &[dataset-state='hit'] {
     background: #f00;
   }

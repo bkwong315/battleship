@@ -9,7 +9,7 @@ const BoardDisplay = (props: {
   cellCallback?: (coords: [number, number]) => void;
 }) => {
   const { boardData, cellCallback } = props;
-  const { missedShots, allShots } = boardData;
+  const { missedShots, allShots, ships } = boardData;
   const [boardCells, setBoardCells] = useState<React.ReactElement[]>([]);
 
   useEffect(() => {
@@ -22,7 +22,14 @@ const BoardDisplay = (props: {
     for (let row = 0; row < 10; row++) {
       for (let col = 0; col < 10; col++) {
         let cellState = 'unknown';
-        if (
+
+        if (ships) {
+          for (const shipType in ships) {
+            for (const pos of ships[shipType].getLocation()) {
+              if (pos[0] === row && pos[1] === col) cellState = 'ship';
+            }
+          }
+        } else if (
           missedShots.some(
             (coords: number[]) => coords[0] === row && coords[1] === col
           )
