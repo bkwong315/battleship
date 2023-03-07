@@ -171,6 +171,9 @@ const App = () => {
                   missedShots: playerBoardData.current.missedShots,
                   ships: playerBoardData.current.ships,
                 }}
+                deploymentCoords={deploymentCoords}
+                placementDir={placementDir}
+                currShipType={currShipType}
                 cellCallback={setDeploymentCoords}
               />
             )}

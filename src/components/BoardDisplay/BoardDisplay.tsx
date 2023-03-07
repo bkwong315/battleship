@@ -3,18 +3,53 @@ import BoardCell from './BoardCell';
 import BoardData from '../../interfaces/boardData';
 
 import './BoardDisplay.scss';
+import * as React from 'react';
 
 const BoardDisplay = (props: {
   boardData: BoardData;
+  deploymentCoords?: [number, number];
+  currShipType?: string;
+  placementDir?: string;
   cellCallback?: (coords: [number, number]) => void;
 }) => {
-  const { boardData, cellCallback } = props;
+  const {
+    boardData,
+    deploymentCoords,
+    placementDir,
+    currShipType,
+    cellCallback,
+  } = props;
   const { missedShots, allShots, ships } = boardData;
   const [boardCells, setBoardCells] = useState<React.ReactElement[]>([]);
+  let selectedCoords: number[][] = [];
+  let invalidPlacement = false;
 
   useEffect(() => {
+    if (deploymentCoords && currShipType && placementDir && ships) {
+      invalidPlacement = false;
+      const newSelectedCoords = [deploymentCoords];
+      const dirs: { [key: string]: [number, number] } = {
+        up: [-1, 0],
+        right: [0, 1],
+        down: [1, 0],
+        left: [0, -1],
+      };
+
+      for (let i = 1; i < ships[currShipType].getLength(); i++) {
+        const newRow = deploymentCoords[0] + dirs[placementDir][0] * i;
+        const newCol = deploymentCoords[1] + dirs[placementDir][1] * i;
+
+        if (newRow < 0 || newRow > 9 || newCol < 0 || newCol > 9)
+          invalidPlacement = true;
+
+        newSelectedCoords.push([newRow, newCol]);
+      }
+
+      selectedCoords = newSelectedCoords;
+    }
+
     setBoardCells(createBoardCells());
-  }, [allShots]);
+  }, [allShots, deploymentCoords, placementDir]);
 
   function createBoardCells() {
     const cells = [];
@@ -51,6 +86,8 @@ const BoardDisplay = (props: {
             row={row}
             col={col}
             state={cellState}
+            selectedCoords={selectedCoords}
+            invalidPlacement={invalidPlacement}
             callback={cellCallback ? cellCallback : undefined}
           />
         );

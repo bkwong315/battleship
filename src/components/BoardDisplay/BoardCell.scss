@@ -14,6 +14,14 @@
   }
 
   &[dataset-state='unknown'][dataset-interactable='true']:hover {
-    background: rgb(77, 255, 237);
+    filter: brightness(125%);
+  }
+
+  &[dataset-selected='true'] {
+    background: orange;
+  }
+
+  &[dataset-selected='invalid'] {
+    background: rgb(255, 38, 0);
   }
 }
