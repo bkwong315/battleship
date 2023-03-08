@@ -32,6 +32,16 @@ describe('Testing placeShip method', () => {
       gameBoard.placeShip([5, 9], 'right', 'submarine');
     }).toThrow('Invalid coords. Coords must be between 0-9 for both axes.');
   });
+
+  test('Place ship in occupied space', () => {
+    const gameBoard = GameBoard();
+
+    gameBoard.placeShip([0, 0], 'down', 'carrier');
+
+    expect(() => {
+      gameBoard.placeShip([1, 0], 'right', 'battleship');
+    }).toThrow('Invalid coords. Coords canont overlap with existing ships.');
+  });
 });
 
 describe('Testing receiveAttack method', () => {

@@ -65,6 +65,19 @@ const GameBoard = () => {
           'Invalid coords. Coords must be between 0-9 for both axes.'
         );
       }
+
+      for (const shipType in _data.ships) {
+        for (const pos of _data.ships[shipType].getLocation()) {
+          if (
+            pos[0] === startRow + offSet.row * i &&
+            pos[1] === startCol + offSet.col * i
+          ) {
+            throw new Error(
+              'Invalid coords. Coords canont overlap with existing ships.'
+            );
+          }
+        }
+      }
       newLocation.push([startRow + offSet.row * i, startCol + offSet.col * i]);
     }
 
