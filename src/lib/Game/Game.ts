@@ -1,8 +1,8 @@
 import Player from '../Player/Player';
 
 const Game = () => {
-  const player = Player('');
-  const computer = Player('Comp');
+  let player = Player('');
+  let computer = Player('Comp');
   let gameStarted = false;
 
   const getPlayerName = () => player.getName();
@@ -29,6 +29,13 @@ const Game = () => {
     }
 
     gameStarted = true;
+  };
+
+  const resetGame = () => {
+    player = Player(player.getName());
+    computer = Player('Comp');
+
+    gameStarted = false;
   };
 
   const playTurn = (coords: number[]) => {
@@ -86,6 +93,7 @@ const Game = () => {
     placePlayerShip,
     isGameStarted,
     startGame,
+    resetGame,
   };
 };
 

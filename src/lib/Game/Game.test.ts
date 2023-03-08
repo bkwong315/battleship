@@ -76,3 +76,18 @@ test('Start game (success)', () => {
 
   expect(game.isGameStarted()).toBe(true);
 });
+
+test('Reset game', () => {
+  const game = Game();
+
+  game.placePlayerShip([0, 0], 'right', 'carrier');
+  game.placePlayerShip([1, 0], 'right', 'battleship');
+  game.placePlayerShip([2, 0], 'right', 'cruiser');
+  game.placePlayerShip([3, 0], 'right', 'submarine');
+  game.placePlayerShip([4, 0], 'right', 'destroyer');
+
+  game.startGame();
+  game.resetGame();
+
+  expect(game.isGameStarted()).toBe(false);
+});
