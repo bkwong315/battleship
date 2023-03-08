@@ -37,6 +37,10 @@ const App = () => {
     game.getComputerBoard().placeShip([0, 2], 'down', 'cruiser');
     game.getComputerBoard().placeShip([0, 3], 'down', 'submarine');
     game.getComputerBoard().placeShip([0, 4], 'down', 'destroyer');
+
+    return () => {
+      game.resetGame();
+    };
   }, []);
 
   function updateBoard(coords: number[]) {
