@@ -64,7 +64,9 @@ const BoardDisplay = (props: {
               if (pos[0] === row && pos[1] === col) cellState = 'ship';
             }
           }
-        } else if (
+        }
+
+        if (
           missedShots.some(
             (coords: number[]) => coords[0] === row && coords[1] === col
           )
