@@ -48,10 +48,17 @@ const App = () => {
   function updateBoard(coords: number[]) {
     try {
       game.playTurn(coords);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      if (typeof error === 'string') {
+        setErrorMsg(error);
+      } else if (error instanceof Error) {
+        setErrorMsg(error.message);
+      }
+
       return;
     }
+
+    setErrorMsg('');
 
     if (computerBoardData.current !== undefined) {
       setComputerAllShots([...computerBoardData.current.allShots]);
@@ -99,6 +106,8 @@ const App = () => {
       return;
     }
 
+    setErrorMsg('');
+
     const shipIdx = shipTypes.findIndex(
       (shipType) => shipType === currShipType
     );
@@ -106,6 +115,7 @@ const App = () => {
     if (shipIdx === shipTypes.length - 1) {
       // Updating currShipType to cause rerender
       setCurrShipType(shipTypes[shipIdx - 1]);
+      setErrorMsg('');
       game.startGame();
     } else {
       setCurrShipType(shipTypes[shipIdx + 1]);
@@ -208,6 +218,10 @@ const App = () => {
         )}
         {game.isGameStarted() && (
           <div className='game-layout'>
+            <div className='info-display'>
+              <p>Select tile to attack!</p>
+              {errorMsg !== '' && <p className='error-text'>{errorMsg}</p>}
+            </div>
             <div className='boards-container'>
               {playerBoardData.current !== undefined && (
                 <BoardDisplay
