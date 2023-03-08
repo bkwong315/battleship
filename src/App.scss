@@ -88,6 +88,10 @@
   align-items: center;
   gap: 1rem;
 
+  .player-info-container {
+    display: grid;
+  }
+
   .directions-container {
     display: grid;
     grid-auto-flow: column;

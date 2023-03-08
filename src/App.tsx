@@ -25,6 +25,8 @@ const App = () => {
   const deploymentCoordsRef = useRef<[number, number]>();
   deploymentCoordsRef.current = deploymentCoords;
 
+  const [errorMsg, setErrorMsg] = useState('');
+
   useEffect(() => {
     setComputerAllShots([]);
     setComputerMissedShots([]);
@@ -81,11 +83,21 @@ const App = () => {
       'destroyer',
     ];
 
-    game.placePlayerShip(
-      deploymentCoords,
-      placementDirRef.current,
-      currShipType
-    );
+    try {
+      game.placePlayerShip(
+        deploymentCoords,
+        placementDirRef.current,
+        currShipType
+      );
+    } catch (error) {
+      if (typeof error === 'string') {
+        setErrorMsg(error);
+      } else if (error instanceof Error) {
+        setErrorMsg(error.message);
+      }
+
+      return;
+    }
 
     const shipIdx = shipTypes.findIndex(
       (shipType) => shipType === currShipType
@@ -148,13 +160,16 @@ const App = () => {
           <div className='deployment-layout'>
             <h1 className='layout-header'>Deployment</h1>
             <div className='directions-container'>
-              <p className='instructions'>
-                Deploying{' '}
-                {`${currShipType} ( length ${game
-                  .getPlayerBoard()
-                  .getData()
-                  .ships[`${currShipType}`].getLength()} cells )`}
-              </p>
+              <div className='player-info-container'>
+                <p className='instructions'>
+                  Deploying{' '}
+                  {`${currShipType} ( length ${game
+                    .getPlayerBoard()
+                    .getData()
+                    .ships[`${currShipType}`].getLength()} cells )`}
+                </p>
+                {errorMsg !== '' && <p className='error-text'>{errorMsg}</p>}
+              </div>
               <div className='rotation-icons-container'>
                 <img
                   src='../imgs/rotate-left-solid.svg'
