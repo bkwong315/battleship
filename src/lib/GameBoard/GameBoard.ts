@@ -61,9 +61,7 @@ const GameBoard = () => {
         startCol + offSet.col * i < 0 ||
         startCol + offSet.col * i > 9
       ) {
-        throw new Error(
-          'Invalid coords. Coords must be between 0-9 for both axes.'
-        );
+        throw new Error('Invalid coords. Coords must be inbounds.');
       }
 
       for (const shipType in _data.ships) {

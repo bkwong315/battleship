@@ -30,7 +30,7 @@ describe('Testing placeShip method', () => {
 
     expect(() => {
       gameBoard.placeShip([5, 9], 'right', 'submarine');
-    }).toThrow('Invalid coords. Coords must be between 0-9 for both axes.');
+    }).toThrow('Invalid coords. Coords must be inbounds.');
   });
 
   test('Place ship in occupied space', () => {
