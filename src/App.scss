@@ -23,6 +23,10 @@
 }
 
 .background {
+  @include grid-layout;
+
+  align-content: center;
+
   min-width: 100vw;
   min-height: 100vh;
   min-width: 100dvw;
@@ -84,9 +88,13 @@
 
 .deployment-layout {
   @include grid-layout;
-
-  align-items: center;
+  align-content: center;
   gap: 1rem;
+
+  .layout-header {
+    font-size: 5rem;
+    margin: 0;
+  }
 
   .player-info-container {
     display: grid;
