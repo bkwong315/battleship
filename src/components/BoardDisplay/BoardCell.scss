@@ -1,5 +1,8 @@
+@import '../../globals.scss';
+
 .board-cell {
-  background: rgb(55, 197, 183);
+  position: relative;
+  border: solid 1px white;
 
   &[dataset-state='ship'] {
     background: rgb(100, 255, 113);
@@ -23,5 +26,13 @@
 
   &[dataset-selected='invalid'] {
     background: rgb(255, 38, 0);
+  }
+
+  &[dataset-interactable='true']:hover::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.35);
+    width: 100%;
+    aspect-ratio: 1 / 1;
   }
 }
