@@ -7,3 +7,15 @@ $lighter-green: #00ff29;
 $bg-radial-dark: $darkest-green;
 $bg-radial-light: $dark-green;
 $text-color: $lighter-green;
+
+@mixin btn() {
+  border: none;
+  background: $green;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background: $light-green;
+  }
+}
