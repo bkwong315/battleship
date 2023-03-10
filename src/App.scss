@@ -136,6 +136,12 @@
 
 .game-layout {
   @include grid-layout();
+  gap: 2rem;
+
+  .info-display {
+    border-bottom: dashed 4px $text-color;
+    padding: 0.5rem;
+  }
 }
 
 .boards-container {

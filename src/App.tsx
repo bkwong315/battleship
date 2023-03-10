@@ -171,13 +171,15 @@ const App = () => {
             <h1 className='layout-header'>Deployment</h1>
             <div className='directions-container'>
               <div className='player-info-container'>
-                <p className='instructions'>
-                  Deploying{' '}
-                  {`${currShipType} ( length ${game
-                    .getPlayerBoard()
-                    .getData()
-                    .ships[`${currShipType}`].getLength()} cells )`}
-                </p>
+                {errorMsg === '' && (
+                  <p className='instructions'>
+                    Deploying{' '}
+                    {`${currShipType} ( length ${game
+                      .getPlayerBoard()
+                      .getData()
+                      .ships[`${currShipType}`].getLength()} cells )`}
+                  </p>
+                )}
                 {errorMsg !== '' && <p className='error-text'>{errorMsg}</p>}
               </div>
               <div className='rotation-icons-container'>
@@ -219,7 +221,7 @@ const App = () => {
         {game.isGameStarted() && (
           <div className='game-layout'>
             <div className='info-display'>
-              <p>Select tile to attack!</p>
+              {errorMsg === '' && <p>Select tile to attack!</p>}
               {errorMsg !== '' && <p className='error-text'>{errorMsg}</p>}
             </div>
             <div className='boards-container'>
