@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo, useRef } from 'react';
 import Game from './lib/Game/Game';
 import BoardDisplay from './components/BoardDisplay/BoardDisplay';
 import BoardData from './interfaces/boardData';
+import Modal from './components/Modal/Modal';
 
 import './App.scss';
 
@@ -28,6 +29,14 @@ const App = () => {
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
+    initializeGame();
+
+    return () => {
+      game.resetGame();
+    };
+  }, []);
+
+  function initializeGame() {
     setComputerAllShots([]);
     setComputerMissedShots([]);
 
@@ -39,11 +48,16 @@ const App = () => {
     game.getComputerBoard().placeShip([0, 2], 'down', 'cruiser');
     game.getComputerBoard().placeShip([0, 3], 'down', 'submarine');
     game.getComputerBoard().placeShip([0, 4], 'down', 'destroyer');
+  }
 
-    return () => {
-      game.resetGame();
-    };
-  }, []);
+  function resetGame() {
+    game.resetGame();
+    setPlacementDir('right');
+    setDeploymentCoords([0, 0]);
+    setCurrShipType('carrier');
+
+    initializeGame();
+  }
 
   function updateBoard(coords: number[]) {
     try {
@@ -145,6 +159,13 @@ const App = () => {
 
   return (
     <>
+      {game.isGameStarted() && game.isGameOver() && (
+        <Modal
+          msg={`${game.getWinner()} wins!`}
+          btnMsg='Play Again?'
+          callback={resetGame}
+        />
+      )}
       <div className='background'>
         {game.getPlayerName() === '' && (
           <div className='main-layout'>

@@ -1,0 +1,34 @@
+@import '../../globals';
+
+.modal-container {
+  position: absolute;
+  text-align: center;
+
+  min-height: 100lvh;
+  min-width: 100lvw;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+
+  .modal-card {
+    position: absolute;
+    display: grid;
+    gap: 1rem;
+    padding: 2rem 4rem;
+    background: $dark-green;
+    width: max-content;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+  }
+
+  p {
+    font-size: 3rem;
+    text-transform: capitalize;
+  }
+
+  button {
+    @include btn;
+  }
+}
