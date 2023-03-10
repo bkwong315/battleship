@@ -91,3 +91,58 @@ test('Reset game', () => {
 
   expect(game.isGameStarted()).toBe(false);
 });
+
+describe('Test get winner method', () => {
+  test('Player winner.', () => {
+    const game = Game();
+
+    game.placePlayerShip([0, 0], 'right', 'carrier');
+    game.placePlayerShip([1, 0], 'right', 'battleship');
+    game.placePlayerShip([2, 0], 'right', 'cruiser');
+    game.placePlayerShip([3, 0], 'right', 'submarine');
+    game.placePlayerShip([4, 0], 'right', 'destroyer');
+
+    game.getComputerBoard().placeShip([0, 0], 'right', 'carrier');
+    game.getComputerBoard().placeShip([1, 0], 'right', 'battleship');
+    game.getComputerBoard().placeShip([2, 0], 'right', 'cruiser');
+    game.getComputerBoard().placeShip([3, 0], 'right', 'submarine');
+    game.getComputerBoard().placeShip([4, 0], 'right', 'destroyer');
+
+    const gameBoard = game.getComputerBoard();
+
+    game.startGame();
+    let row = 0;
+    for (const shipType in gameBoard.getData().ships) {
+      const ship = gameBoard.getData().ships[shipType];
+      for (let col = 0; col < ship.getLength(); col++) {
+        game.playTurn([row, col]);
+      }
+      row++;
+    }
+
+    expect(game.getWinner()).toBe('player');
+  });
+
+  test('Computer winner.', () => {
+    const game = Game();
+
+    game.placePlayerShip([0, 0], 'right', 'carrier');
+    game.placePlayerShip([1, 0], 'right', 'battleship');
+    game.placePlayerShip([2, 0], 'right', 'cruiser');
+    game.placePlayerShip([3, 0], 'right', 'submarine');
+    game.placePlayerShip([4, 0], 'right', 'destroyer');
+
+    const gameBoard = game.getPlayerBoard();
+
+    let row = 0;
+    for (const shipType in gameBoard.getData().ships) {
+      const ship = gameBoard.getData().ships[shipType];
+      for (let col = 0; col < ship.getLength(); col++) {
+        gameBoard.receiveAttack([row, col]);
+      }
+      row++;
+    }
+
+    expect(game.getWinner()).toBe('computer');
+  });
+});

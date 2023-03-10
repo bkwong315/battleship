@@ -84,6 +84,13 @@ const Game = () => {
     getPlayerBoard().isFleetDestroyed() ||
     getComputerBoard().isFleetDestroyed();
 
+  const getWinner = () => {
+    if (getPlayerBoard().isFleetDestroyed()) return 'computer';
+    if (getComputerBoard().isFleetDestroyed()) return 'player';
+
+    return 'game not over';
+  };
+
   return {
     getPlayerName,
     setPlayerName,
@@ -94,6 +101,8 @@ const Game = () => {
     isGameStarted,
     startGame,
     resetGame,
+    getWinner,
+    isGameOver,
   };
 };
 
