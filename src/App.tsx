@@ -240,25 +240,33 @@ const App = () => {
               {errorMsg !== '' && <p className='error-text'>{errorMsg}</p>}
             </div>
             <div className='boards-container'>
-              {playerBoardData.current !== undefined && (
-                <BoardDisplay
-                  boardData={{
-                    allShots: playerBoardData.current.allShots,
-                    missedShots: playerBoardData.current.missedShots,
-                    ships: playerBoardData.current.ships,
-                  }}
-                />
-              )}
-              {computerAllShots !== undefined &&
-                computerMissedShots !== undefined && (
+              <div className='board-wrapper'>
+                <p className='player-board-name'>
+                  {game.getPlayerName()}'s Board
+                </p>
+                {playerBoardData.current !== undefined && (
                   <BoardDisplay
                     boardData={{
-                      allShots: computerAllShots,
-                      missedShots: computerMissedShots,
+                      allShots: playerBoardData.current.allShots,
+                      missedShots: playerBoardData.current.missedShots,
+                      ships: playerBoardData.current.ships,
                     }}
-                    cellCallback={updateBoard}
                   />
                 )}
+              </div>
+              <div className='board-wrapper'>
+                <p className='computer-board-name'>Computer's Board</p>
+                {computerAllShots !== undefined &&
+                  computerMissedShots !== undefined && (
+                    <BoardDisplay
+                      boardData={{
+                        allShots: computerAllShots,
+                        missedShots: computerMissedShots,
+                      }}
+                      cellCallback={updateBoard}
+                    />
+                  )}
+              </div>
             </div>
           </div>
         )}

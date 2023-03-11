@@ -130,10 +130,15 @@
     border-bottom: dashed 4px $text-color;
     padding: 0.5rem;
   }
-}
 
-.boards-container {
-  display: flex;
-  justify-content: center;
-  gap: 4rem;
+  .boards-container {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+  }
+
+  .board-wrapper {
+    display: grid;
+    gap: 0.75rem;
+  }
 }
