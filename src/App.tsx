@@ -42,12 +42,6 @@ const App = () => {
 
     playerBoardData.current = game.getPlayerBoard().getData();
     computerBoardData.current = game.getComputerBoard().getData();
-
-    game.getComputerBoard().placeShip([0, 0], 'down', 'carrier');
-    game.getComputerBoard().placeShip([0, 1], 'down', 'battleship');
-    game.getComputerBoard().placeShip([0, 2], 'down', 'cruiser');
-    game.getComputerBoard().placeShip([0, 3], 'down', 'submarine');
-    game.getComputerBoard().placeShip([0, 4], 'down', 'destroyer');
   }
 
   function resetGame() {
