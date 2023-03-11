@@ -4,6 +4,8 @@ import BoardDisplay from './components/BoardDisplay/BoardDisplay';
 import BoardData from './interfaces/boardData';
 import Modal from './components/Modal/Modal';
 
+import clockwiseRotate from './imgs/rotate-right-solid.svg';
+import counterClockwiseRotate from './imgs/rotate-left-solid.svg';
 import './App.scss';
 
 const App = () => {
@@ -199,12 +201,12 @@ const App = () => {
               </div>
               <div className='rotation-icons-container'>
                 <img
-                  src='../imgs/rotate-left-solid.svg'
+                  src={counterClockwiseRotate}
                   alt='rotate-left-icon'
                   onClick={rotateShip.bind(null, 'counter-clockwise')}
                 />
                 <img
-                  src='../imgs/rotate-right-solid.svg'
+                  src={clockwiseRotate}
                   alt='rotate-right-icon'
                   onClick={rotateShip.bind(null, 'clockwise')}
                 />
