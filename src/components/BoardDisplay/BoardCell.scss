@@ -5,7 +5,7 @@
   border: solid 1px white;
 
   &[dataset-state='ship'] {
-    background: rgb(100, 255, 113);
+    background: rgb(59, 223, 73);
   }
 
   &[dataset-state='hit'] {
@@ -16,12 +16,8 @@
     background: #00f;
   }
 
-  &[dataset-state='unknown'][dataset-interactable='true']:hover {
-    filter: brightness(125%);
-  }
-
   &[dataset-selected='true'] {
-    background: orange;
+    background: rgb(255, 136, 0);
   }
 
   &[dataset-selected='invalid'] {
