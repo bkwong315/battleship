@@ -28,6 +28,7 @@ const Game = () => {
       }
     }
 
+    placeComputerShips();
     gameStarted = true;
   };
 
@@ -60,13 +61,13 @@ const Game = () => {
     }
   };
 
+  function getRandomInt(max: number) {
+    return Math.floor(Math.random() * max);
+  }
+
   const getComputerAttack = () => {
     const prevShots = getPlayerBoard().getData().allShots;
     let targetCoords = [getRandomInt(10), getRandomInt(10)];
-
-    function getRandomInt(max: number) {
-      return Math.floor(Math.random() * max);
-    }
 
     while (
       prevShots.some(
@@ -89,6 +90,28 @@ const Game = () => {
     if (getComputerBoard().isFleetDestroyed()) return 'player';
 
     return 'game not over';
+  };
+
+  const placeComputerShips = () => {
+    const dirs = ['up', 'right', 'down', 'left'];
+    const computerBoard = getComputerBoard();
+    const ships = computerBoard.getData().ships;
+
+    for (const shipType in ships) {
+      const shipLength = ships[shipType].getLength();
+
+      while (ships[shipType].getLocation().length < shipLength) {
+        try {
+          computerBoard.placeShip(
+            [getRandomInt(10), getRandomInt(10)],
+            dirs[getRandomInt(4)],
+            shipType
+          );
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
   };
 
   return {
